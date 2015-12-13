@@ -18,28 +18,55 @@
     <!-- build:css({.tmp,client}) app/app.css -->
       <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
+      <link rel="stylesheet" href="app/about/about.css">
       <link rel="stylesheet" href="app/admin/admin.css">
       <link rel="stylesheet" href="app/app.css">
       <link rel="stylesheet" href="app/main/main.css">
+      <link rel="stylesheet" href="app/profile/profile.css">
+      <link rel="stylesheet" href="app/s/s.css">
       <link rel="stylesheet" href="components/footer/footer.css">
       <link rel="stylesheet" href="components/oauth-buttons/oauth-buttons.css">
       <!-- endinjector -->
     <!-- endbuild -->
-  </head>
-  <body ng-app="hrr10MjbeApp" class="fullbleed layout vertical">
-    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+     <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="bower_components/polymer/polymer.html">
     <link rel="import" href="bower_components/iron-icons/iron-icons.html">
 
     <!-- CUSTOM ELEMENTS -->
     <link rel="import" href="elements/elements.html">
 
+  </head>
+  <body ng-app="hrr10MjbeApp" unresolved class="fullbleed layout vertical">
+   
     <!--[if lt IE 7]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <ui-view></ui-view>
+      <paper-header-panel class="flex" main mode="waterfall">
+        <!-- Main Toolbar -->
+
+        <paper-toolbar>
+          <div class="title top">Adapt Academy</div>
+          <div class="horizontal layout">
+            <paper-tabs>
+              <paper-tab>Home</paper-tab>
+              <paper-tab ui-sref="profile">Profile</paper-tab>
+              <paper-tab>Progress</paper-tab>
+              <paper-tab>Badges</paper-tab>
+              <paper-tab>Sign Out</paper-tab>
+            </paper-tabs>
+          </div>
+        </paper-toolbar>
+        <!--<div class="fit">
+        <paper-material flex elevation = "1" class="fit" style="background-color: #000;"></paper-material>
+        </div>-->
+       <div class="content fit">
+  
+    <ui-view class="fit"></ui-view>
+    </div>
+     </paper-header-panel>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -72,7 +99,11 @@
       <script src="app/admin/admin.module.js"></script>
       <script src="components/auth/auth.module.js"></script>
       <script src="components/util/util.module.js"></script>
+<<<<<<< HEAD
       <script src="app/profile/profile.js"></script>
+=======
+      <script src="app/s/s.controller.js"></script>
+>>>>>>> 21b99146e84330dfda21b35006d74d7d1677f551
       <script src="app/account/settings/settings.controller.js"></script>
       <script src="app/account/signup/signup.controller.js"></script>
       <script src="app/admin/admin.controller.js"></script>
@@ -83,7 +114,13 @@
       <script src="app/main/main.js"></script>
       <script src="app/problems/generator.js"></script>
       <script src="app/profile/profile.controller.js"></script>
+<<<<<<< HEAD
       <script src="app/about/about.js"></script>
+=======
+      <script src="app/profile/profile.js"></script>
+      <script src="app/about/about.js"></script>
+      <script src="app/s/s.js"></script>
+>>>>>>> 21b99146e84330dfda21b35006d74d7d1677f551
       <script src="app/account/account.js"></script>
       <script src="components/auth/auth.service.js"></script>
       <script src="components/auth/interceptor.service.js"></script>

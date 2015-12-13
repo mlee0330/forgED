@@ -9,10 +9,4 @@ angular.module('hrr10MjbeApp')
         controller: 'MainController',
         controllerAs: 'main'
       })
-      .state('newroute', {
-        url: '/new',
-        templateUrl: 'app/main/newroute.html',
-        controller: 'MainController',
-        controllerAs: 'main'
-      });
   });
