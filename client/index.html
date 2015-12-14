@@ -39,7 +39,7 @@
 
   </head>
   <body ng-app="hrr10MjbeApp" unresolved class="fullbleed layout vertical">
-   
+
     <!--[if lt IE 7]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -54,7 +54,7 @@
             <paper-tabs>
               <paper-tab>Home</paper-tab>
               <paper-tab ui-sref="profile">Profile</paper-tab>
-              <paper-tab>Progress</paper-tab>
+              <paper-tab ui-sref="about">About</paper-tab>
               <paper-tab>Badges</paper-tab>
               <paper-tab>Sign Out</paper-tab>
             </paper-tabs>
@@ -67,6 +67,7 @@
   
     <ui-view class="fit"></ui-view>
     </div>
+
      </paper-header-panel>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
@@ -108,13 +109,14 @@
       <script src="app/about/about.controller.js"></script>
       <script src="app/admin/admin.router.js"></script>
       <script src="app/app.constant.js"></script>
+      <script src="app/directives/bindPolymer/bindPolymer.directive.js"></script>
       <script src="app/main/main.controller.js"></script>
       <script src="app/main/main.js"></script>
-      <script src="app/problems/generator.js"></script>
       <script src="app/profile/profile.controller.js"></script>
       <script src="app/profile/profile.js"></script>
       <script src="app/about/about.js"></script>
       <script src="app/s/s.js"></script>
+      <script src="app/services/problems/problems.service.js"></script>
       <script src="app/account/account.js"></script>
       <script src="components/auth/auth.service.js"></script>
       <script src="components/auth/interceptor.service.js"></script>

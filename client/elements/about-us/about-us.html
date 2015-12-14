@@ -1,0 +1,48 @@
+<dom-module id="about-us">
+  <template>
+    <paper-tabs selected="{{selected}}">
+      <paper-tab>Our Vision</paper-tab>
+      <paper-tab>About Us</paper-tab>
+      <paper-tab>Contact</paper-tab>
+    </paper-tabs>
+  
+    <iron-pages selected="{{selected}}">
+      <div>One</div>
+      
+      <div>
+          <template is="dom-bind" id="t">
+            <google-map map="{{map}}" latitude="38.6" longitude="-100" zoom="4" style="height:600px"
+            styles='[{"stylers":[{"saturation":-85}]},{"featureType":"water","stylers":[{"lightness":-20}]}]'
+            on-zoom-changed="setPointSize" on-google-map-ready="setPointSize">
+            </google-map>
+            <point-overlay map="[[map]]" uniforms="{{uniforms}}" data='[{"lat": 34.05227, "lng": -118.243474}, 
+              {"lat": 32.7157205, "lng": -117.1609371}, {"lat": 30.396105, "lng": -88.8855034}, {"lat": 42.09867, "lng": -75.9180003}]'>
+            </point-overlay>
+          </template>
+      </div>
+      
+      <div>Three</div>
+    </iron-pages>
+  </template>
+
+
+  <script>
+  
+    Polymer({
+      is: 'about-us',
+      properties: {
+        selected: {
+          type: Number,
+          value: 0
+        }
+      },
+      ready: function(){
+          var t = document.querySelector('#t');
+          t.setPointSize = function(e) {
+          this.uniforms.pointSize = Math.exp(0.6 * this.map.getZoom());
+          this.notifyPath('uniforms.pointSize', this.uniforms.pointSize);
+        }
+      }
+    });
+  </script>
+</dom-module>

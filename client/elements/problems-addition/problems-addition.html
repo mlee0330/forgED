@@ -1,103 +1,95 @@
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-
 <dom-module id="problems-addition">
   <template>
     <style>
-      :host {
-        display: block;
-      }
-
-      .container {
-        padding: 50px;
-        position: relative;
-      }
-
-      paper-fab {
-        background-color: #F5A503;
-       
-      }
-
-      paper-material {
-        top: 100px;
-        height: 250px;
-        max-width: 400px;
-        margin: 16px auto;
-        background-color: #eee;
-        text-align: center;
-}
-    </style>
- <paper-material elevation="1" horizontal layout>
-    <div class="container">What is <span><strong>{{question}}</strong></span> ?</div>
-    <input value="{{studentAnswer::input}}">
-
-    <!-- <paper-button class="submit" on-tap="plzwork">Submit</paper-button> -->
-    <paper-fab icon="send" on-tap="plzwork"></paper-fab>
-    <p>{{message}}</p>
-    </paper-material>
-
-  </template>
-  <script>
-    var generator = function() {
-      var randInt = function (max) {
-        return Math.ceil(Math.random() * max);
-      };
-
-      var x = Math.ceil(Math.random() * 10);
-      var y = Math.ceil(Math.random() * 10);
-      var operator = ['+', '-', '*'][Math.floor(Math.random() * 3)];
-      return x + ' ' + operator + ' ' + y;
+    :host {
+      display: block;
     }
-    // var answerChecker = function(query) {
-    //   console.log('inside answerChecker');
-    //   console.log(this.studentAnswer);
+    
+    .container {
+      padding: 50px;
+      position: relative;
+    }
+    
+    paper-fab {
+      background-color: #F5A503;
+    }
+    
+    paper-material {
+      top: 100px;
+      height: 250px;
+      max-width: 400px;
+      margin: 16px auto;
+      background-color: #eee;
+      text-align: center;
+    }
+    </style>
+    <paper-material elevation="1" horizontal layout>
+      <div class="container">What is <span><strong>{{question.nums.0}} {{question.operator}} {{question.nums.1}}</strong></span> ?</div>
+      <input value="{{studentAnswer::input}}">
+      <paper-fab icon="send" on-tap="evaluate"></paper-fab>
+      <p>{{message}}</p>
+    </paper-material>
+  </template>
+  <script src="../../lib/mpgen.js"></script>
+  <script>
+  //TODO this should not go here
+  function getProblemBySetId(id) {
+    console.log(id);
+    if (id === 0) {
+      return mpgen.simpleAddition(0, 10);
+    }
+     else if (id === 1) {
+      return mpgen.simpleAddition(0, 1000);
+    }
+     if (id === 2) {
+      return mpgen.simpleSubtraction(0, 10);
+    }
+  }
+  
+  Polymer({
+    is: 'problems-addition',
 
-    //   if(query === 2) {
-    //     alert('Correct!');
-    //   } else {
-    //     alert(this.studentAnswer);
-    //   }
-    // };
-
-    Polymer({
-      is: 'problems-addition',
-
-      properties: {
-
-        question: {
-          type: String,
-          value: generator(),
-          notify: true
-        },
-
-        studentAnswer: {
-          type: Number,
-          notify: true
-        },
-
-        message: {
-          type: String
-        }
+    properties: {
+      question: {
+        type: Object,
+        computed: 'getProblem(problemtype, changed)',
+        notify: true
       },
 
-      plzwork: function() {
-        if (this.studentAnswer == eval(this.question)) {
-          this.message = 'Correct!';
-        } else {
-          this.message = 'Incorrect. :(';
-        }
-        this.studentAnswer = '';
-        this.question = generator();
+      studentAnswer: {
+        type: Number,
+        notify: true
+      },
+
+      message: {
+        type: String
+      },
+
+      problemtype: {
+        type: Number
+      },
+
+      changed: {
+        type: Number,
+        value: 0,
+        notify: true
       }
-    });
+    },
+
+    getProblem: function() {
+      return getProblemBySetId(this.problemtype);
+    },
+
+    evaluate: function() {
+      if (this.studentAnswer == this.question.answer) {
+        this.message = 'Correct!';
+      } else {
+        this.message = 'Incorrect. :(';
+      }
+      this.studentAnswer = '';
+      this.changed++;
+    }
+  });
   </script>
 </dom-module>
