@@ -4,10 +4,13 @@
 
   class MainController {
 
-    constructor($http, $state, Problems) {
+    constructor($http, $state, Skills) {
       this.$http = $http;
       this.$state = $state;
-      this.Problems = Problems;
+      this.Skills = Skills;
+      Skills.getUserSkills(function(skills) {
+        this.skills = skills;
+      }.bind(this));
       this.awesomeThings = [];
 
       $http.get('/api/things').then(response => {
@@ -29,7 +32,7 @@
     }
 
     go() {
-      this.Problems.setCurrentProblemSet(this.userselection);
+      this.Skills.setActiveSkill(this.userselection);
       this.$state.go('s');
     }
 

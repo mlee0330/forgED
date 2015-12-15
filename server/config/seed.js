@@ -6,6 +6,7 @@
 'use strict';
 import Thing from '../api/thing/thing.model';
 import User from '../api/user/user.model';
+import Skill from '../api/skill/skill.model';
 
 Thing.find({}).removeAsync()
   .then(function() {
@@ -55,5 +56,22 @@ User.find({}).removeAsync()
     })
     .then(function() {
       console.log('finished populating users');
+    });
+  });
+
+Skill.find({}).removeAsync()
+  .then(function() {
+    Skill.create({
+      name: 'Simple Addition',
+      info: 'Practice addition with problems within 10',
+      problemGenId: 0
+    }, {
+       name: 'Hard Addition',
+      info: 'Practice addition with problems within 1000',
+      problemGenId: 1
+    }, {
+       name: 'Simple Subtraction',
+      info: 'Practice subtraction with problems within 10',
+      problemGenId: 2
     });
   });

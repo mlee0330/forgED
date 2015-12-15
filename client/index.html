@@ -52,10 +52,10 @@
           <div class="title top">Adapt Academy</div>
           <div class="horizontal layout">
             <paper-tabs>
-              <paper-tab>Home</paper-tab>
+              <paper-tab ui-sref="main">Home</paper-tab>
               <paper-tab ui-sref="profile">Profile</paper-tab>
               <paper-tab ui-sref="about">About</paper-tab>
-              <paper-tab>Badges</paper-tab>
+              <paper-tab ui-sref="badges">Badges</paper-tab>
               <paper-tab>Sign Out</paper-tab>
             </paper-tabs>
           </div>
@@ -94,6 +94,8 @@
       <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
       <script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
       <script src="bower_components/fabric.js/dist/fabric.min.js"></script>
+      <script src="bower_components/promise-polyfill/Promise.js"></script>
+      <script src="bower_components/web-animations-js/web-animations.min.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js(.tmp) app/app.js -->

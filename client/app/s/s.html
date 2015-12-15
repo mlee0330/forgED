@@ -1,6 +1,7 @@
 <link rel="import" href="elements/mjbe-drawing-canvas/mjbe-drawing-canvas.html">
 <link rel="import" href="elements/problems-addition/problems-addition.html">
-<!--<link rel="import" href="elements/mjbe-problem-view/mjbe-problem-view.html">-->
-<!--<mjbe-problem-view></mjbe-problem-view>-->
+
 <mjbe-drawing-canvas class="fit"></mjbe-drawing-canvas>
-<problems-addition problemtype={{type}}></problems-addition>
+<problems-addition problemtype="{{s.type}}" complete="{{s.complete}}" bind-polymer></problems-addition>
+<input type="submit" ng-click="s.finish()" style="position:absolute">
+<link rel="import" href="elements/main-app/main-app.html">

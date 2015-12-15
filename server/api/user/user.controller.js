@@ -4,6 +4,7 @@ import User from './user.model';
 import passport from 'passport';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
+import _ from 'lodash';
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
@@ -47,10 +48,14 @@ exports.create = function(req, res, next) {
   newUser.role = 'user';
   newUser.saveAsync()
     .spread(function(user) {
-      var token = jwt.sign({ _id: user._id }, config.secrets.session, {
+      var token = jwt.sign({
+        _id: user._id
+      }, config.secrets.session, {
         expiresInMinutes: 60 * 5
       });
-      res.json({ token: token });
+      res.json({
+        token: token
+      });
     })
     .catch(validationError(res));
 };
@@ -108,13 +113,28 @@ exports.changePassword = function(req, res, next) {
     });
 };
 
+exports.update = function(req, res, next) {
+  User.findByIdAsync(req.user._id)
+    .then(function(user) {
+      user.studentData = req.body.studentData;
+      user.teacherData = req.body.teacherData;
+      return user.saveAsync()
+        .then(function() {
+          res.status(204).end();
+        })
+        .catch(validationError(res));
+    });
+};
+
 /**
  * Get my info
  */
 exports.me = function(req, res, next) {
   var userId = req.user._id;
 
-  User.findOneAsync({ _id: userId }, '-salt -hashedPassword')
+  User.findOneAsync({
+      _id: userId
+    }, '-salt -hashedPassword')
     .then(function(user) { // don't ever give out the password or salt
       if (!user) {
         return res.status(401).end();

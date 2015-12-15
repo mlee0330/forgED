@@ -20,7 +20,13 @@ var UserSchema = new Schema({
   salt: String,
   facebook: {},
   google: {},
-  github: {}
+  github: {},
+  //start custom properties
+  type: String,
+  //teacher properties
+  teacherData: Object,
+  //student properties
+  studentData: Object
 });
 
 /**

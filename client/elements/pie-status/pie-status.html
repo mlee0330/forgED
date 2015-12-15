@@ -1,6 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <dom-module id="pie-status">
   <template>
+    <!--TODO this should maybe go through Angular to avoid multiple requests, but can't think of a good way to do that-->
+    <iron-ajax auto url="/api/skills" handle-as="json" on-response="drawPie" last-response="{{ajaxResponse}}"></iron-ajax>
     <div id="holder">
       <style include="shared-styles"></style>
       <style>
@@ -15,54 +17,26 @@
   <script src="https://d3js.org/d3.v3.min.js"></script>
   <script>
   'use strict';
-
-  var subject = '';
   Polymer({
     is: 'pie-status',
     properties: {
       greeting: {
         type: String,
-        value: 'Go to: ' + subject,
+        value: 'Go to: ',
         notify: true
       },
       userselection: {
         notify: true,
-      }
+      },
     },
+    clickHandler: function(d) {
+      this.userselection = d.data._id;
+    },
+    drawPie: function() {
+      console.log('got a response');
+      console.log(this.ajaxResponse);
+      var data = this.ajaxResponse;
 
-    ready: function() {
-      // Get the calculated styles of the paper-material container
-      // window.addEventListener('load', function () {
-      // // var box = document.getElementsByClassName('x-scope paper-material-0')[0];
-      // var box = document.getElementsByTagName('PAPER-MATERIAL');
-      // console.log(box, 'this is the box')
-      // var styles = window.getComputedStyle(box);
-      // console.log(styles.width, 'this is the width');
-      // });  
-
-
-      // window.addEventListener('load', function () {
-      //   var host = document.querySelector('pie-status');
-      //   console.log(host, 'this is the host')
-      //   var root = host.createShadowRoot();
-      //   console.log(root, 'this is the root')
-      // });        
-
-      //var data = [21, 43, 21, 34, 25, 39, 22];
-      //var subjects = ["Addition", "Subtraction", "Multiplication", "Division", "Fractions", "Decimals", "Multivariable Calculus"]
-      var data = [{
-        name: 'Easy addition',
-        val: 50,
-        id: 0
-      }, {
-        name: 'Hard addition',
-        val: 50,
-        id: 1
-      }, {
-        name: 'Easy subtraction',
-        val: 50,
-        id: 2
-      }];
       var width = 800,
         height = 400;
       var outerRadius = height / 2 - 20,
@@ -70,7 +44,7 @@
         cornerRadius = 10;
       var pie = d3.layout.pie()
         .padAngle(.02).value(function(d) {
-          return d.val;
+          return 1;
         });
       var arc = d3.svg.arc()
         .padRadius(outerRadius)
@@ -81,7 +55,7 @@
         .append("g")
         .attr("transform", "translate(" + width / 4 + "," + height / 2 + ")");
       svg.selectAll("path")
-        .data(pie(data))
+        .data(pie(this.ajaxResponse))
         .enter().append("path")
         .each(function(d) {
           d.outerRadius = outerRadius;
@@ -105,19 +79,6 @@
           });
         };
       }
-
-
-
-      // var svg2 = d3.select(this.$.holder).append("svg")
-      //     .attr("width", 200px)
-      //     .attr("height", 50px)
-      //     .style("fill", "black")
-      //     .append("g")
-
-
-    },
-    clickHandler: function(d) {
-      this.userselection = d.data.id;
     }
   });
   </script>

@@ -6,6 +6,10 @@ angular.module('hrr10MjbeApp')
       .state('s', {
         url: '/s',
         templateUrl: 'app/s/s.html',
-        controller: 'SCtrl'
+        controller: 'SCtrl',
+        controllerAs: 's'
       });
   });
+
+
+

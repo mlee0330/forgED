@@ -1,0 +1,118 @@
+<dom-module id="mjbe-badges">
+  <template>
+    <style>
+    :host {
+      display: block;
+    }
+
+    .headertitle {
+      width: 100%;
+      text-align: center;
+    }
+    
+    .container {
+      padding: 50px;
+      position: relative;
+    }
+    
+    paper-fab {
+      background-color: #F5A503;
+    }
+    
+    paper-material {
+      top: 100px;
+      min-height: 100px;
+      max-width: 400px;
+      margin: 16px auto;
+      background-color: #eee;
+      text-align: center;
+    }
+
+    paper-card {
+      width: 80px;
+      height: 80px;
+      margin: 20px;
+      font-size: 12px;
+      background-color: #DEA791;
+    }
+
+    paper-card:hover {
+      background-color: #79DE95;
+      height: 100px;
+      width: 100px;
+      margin: 0px 10px;
+    }
+
+
+    .cardheader {
+      background-color: #36B1BF;
+
+    }
+
+    </style>
+
+    <paper-material elevation="1" id="badge-holder">
+
+      <paper-toolbar class="cardheader"><div class="headertitle">Badges</div></paper-toolbar>
+        <template is="dom-repeat" items="{{badges}}">
+            <paper-card animatedShadow="true" elevation="1" id="badgecard" on-mouseover="raise" on-mouseout="lower">
+              <paper-icon-button icon="{{item.image}}" style="color: blue"></paper-icon-button>
+              <paper-tooltip position="top" offset="-5" delay="0">{{item.name}}</paper-tooltip>
+              <paper-shadow></paper-shadow>
+              <div>{{item.name}}</div>
+            </paper-card>
+        </template>
+    </paper-material>
+
+    </template>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script>
+    var userBadges = [{name:'addition',
+                      image:'add',
+                      achieved: true},
+                      {name:'subtraction',
+                      image:'build',
+                      achieved: true},
+                      {name:'multiplication',
+                      image:'favorite',
+                      achieved: false},
+                      {name:'division',
+                      image:'account-balance',
+                      achieved: false},
+                      {name:'addition',
+                      image:'polymer',
+                      achieved: true},
+                      {name:'subtraction',
+                      image:'accessibility',
+                      achieved: true},
+                      {name:'multiplication',
+                      image:'assessment',
+                      achieved: false},
+                      {name:'division',
+                      image:'bookmark',
+                      achieved: false}];
+
+    Polymer({
+      is: 'mjbe-badges',
+      properties: {
+        selected: {
+          type: Number,
+          value: 0
+        }
+      },
+      ready: function() {
+        this.badges = userBadges;
+        this.badges.forEach(function(badge){
+          console.log(badge);
+        });
+      },
+      raise: function(){
+        console.log('raise');
+      },
+
+      lower: function(){
+        console.log('lower')
+      }
+    });
+  </script>
+</dom-module>
