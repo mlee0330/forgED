@@ -31,7 +31,8 @@
     "point-overlay": "googlecodelabs/polymer-webgl-visualization",
     "iron-pages": "PolymerElements/iron-pages#~1.0.5",
     "iron-ajax": "polymerelements/iron-ajax#~1.1.1",
-    "paper-tooltip": "PolymerElements/paper-tooltip#~1.1.1"
+    "paper-tooltip": "PolymerElements/paper-tooltip#~1.1.1",
+    "neon-animation": "PolymerElements/neon-animation#~1.0.8"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.0"

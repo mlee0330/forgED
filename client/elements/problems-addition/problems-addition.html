@@ -29,7 +29,6 @@
       <input value="{{studentAnswer::input}}">
       <paper-fab icon="send" on-tap="evaluate"></paper-fab>
       <p>{{message}}</p>
-      <p>{{correctcount}} correct</p>
     </paper-material>
   </template>
   <script src="../../lib/mpgen.js"></script>
@@ -75,17 +74,6 @@
         type: Number,
         value: 0,
         notify: true
-      },
-
-      correctcount: {
-        type: Number,
-        value: 0,
-        notify: true
-      },
-
-      complete: {
-        type: String,
-        notify: true
       }
     },
 
@@ -96,13 +84,8 @@
     evaluate: function() {
       if (this.studentAnswer == this.question.answer) {
         this.message = 'Correct!';
-        this.correctcount++;
-        if (this.correctcount > 4) {
-          this.complete = 'true';
-        }
       } else {
         this.message = 'Incorrect. :(';
-        this.correctcount = 0;
       }
       this.studentAnswer = '';
       this.changed++;

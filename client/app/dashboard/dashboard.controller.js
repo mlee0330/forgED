@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('hrr10MjbeApp')
-  .controller('TeacherdashboardCtrl', function ($scope) {
+  .controller('DashboardCtrl', function ($scope) {
     $scope.message = 'Hello';
   });

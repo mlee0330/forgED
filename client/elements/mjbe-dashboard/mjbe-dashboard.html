@@ -1,0 +1,84 @@
+<dom-module id="mjbe-dashboard">
+  <template>
+    <style>
+      .header {
+        height: 20%;
+        background: #60C4DE;
+        text-align: center;
+      }
+      .body {
+        text-align: center;
+        padding: 8px;
+      }
+      .square {
+        display: inline-block;
+        width: 150px;
+        height: 150px;
+        margin: 8px;
+        background: #FFA82F;
+      }
+
+      .square:hover {
+        cursor: pointer;
+        background: #60C4DE;
+      }
+    </style>
+    
+    <div id="header" class="header">Welcome back, Mr. Roboto</div>
+
+    <div class="body">
+      <div class="square" ui-sref="classprogress">Class Progress</div>
+      <div class="square">Modifications</div>
+      <div class="square">Gradebook</div>
+      <div class="square">My Content</div>
+    </div>
+
+  </template>
+
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'mjbe-dashboard',
+    behaviors: [
+      Polymer.NeonSharedElementAnimatableBehavior
+    ],
+    //Unnecessary. Putting it back if animation becomes necessary or desired later. 
+    // properties: {
+    //   sharedElements: {
+    //     value: function() {
+    //       return {
+    //         'hero': this.$.header
+    //       }
+    //     }
+    //   },
+    //   animationConfig: {
+    //     value: function() {
+    //       var squares = Polymer.dom(this.root).querySelectorAll('.square');
+    //       var squaresArray = Array.prototype.slice.call(squares);
+    //       return {
+    //         'entry': [{
+    //           name: 'hero-animation',
+    //           id: 'hero',
+    //           toPage: this
+    //         }, {
+    //           name: 'cascaded-animation',
+    //           animation: 'transform-animation',
+    //           transformFrom: 'translateY(100%)',
+    //           nodes: squaresArray
+    //         }],
+    //         'exit': [{
+    //           name: 'slide-up-animation',
+    //           node: this.$.header
+    //         }, {
+    //           name: 'cascaded-animation',
+    //           animation: 'transform-animation',
+    //           transformTo: 'translateY(60vh)',
+    //           nodes: squaresArray
+    //         }]
+    //       };
+    //     }
+    //   }
+    // }
+  });
+</script>
