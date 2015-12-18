@@ -1,9 +1,14 @@
 <script src="../../bower_components/fabric.js/dist/fabric.js"></script>
 <link rel="import" href="../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
 <dom-module id="mjbe-drawing-canvas">
+  <style>
+   --paper-fab-mini {
+    margin: 20px;
+   }
+  </style>
   <template>
+    <paper-button on-tap="clear">Clear Whiteboard<paper-icon-button mini icon="clear" on-tap="clear"></paper-icon-button></paper-button>
     <canvas id="canvas"></canvas>
-     <paper-fab icon="clear" on-tap="clear"></paper-fab>
   </template>
   <script>
   (function() {
