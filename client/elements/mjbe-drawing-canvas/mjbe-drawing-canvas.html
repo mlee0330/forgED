@@ -5,10 +5,17 @@
    --paper-fab-mini {
     margin: 20px;
    }
+
+   paper-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: green;
+   }
   </style>
   <template>
-    <paper-button on-tap="clear">Clear Whiteboard<paper-icon-button mini icon="clear" on-tap="clear"></paper-icon-button></paper-button>
     <canvas id="canvas"></canvas>
+    <paper-button on-tap="clear">Clear Whiteboard<paper-icon-button mini icon="clear" on-tap="clear"></paper-icon-button></paper-button>
   </template>
   <script>
   (function() {
