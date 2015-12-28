@@ -1,0 +1,185 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<dom-module id="mjbe-teacher-pie">
+  <template>
+    <style>
+    :host {
+      display: block;
+    }
+
+    #holder {
+      width: 50%;
+      right: 0;
+      position: absolute;
+    }
+
+    li {
+      width: 50%;
+      padding: 5px 20px;
+    }
+
+    .containerborder {
+      transition: background-color 1.5s ease;
+      max-width: none;
+      min-height: 400px;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: #FFF;
+      max-width: none;
+      min-height: 400px;
+    }
+
+    .page-title {
+      margin: 0;
+      padding: 20px;
+      transition: background-color 1.5s ease;
+    }
+    </style>
+    <h2 class="page-title" style$="background-color: [[hovercolor]]">Go to: [[hoverselection]]</h2>
+    <div class="containerborder" style$="background-color: [[hoverbackground]]">
+      <div class="container">
+        <div id="holder"></div>
+        <template is="dom-repeat" items="{{skills}}">
+          <li>{{item.name}}</li>
+        </template>
+      </div>
+    </div>
+  </template>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script>
+  'use strict';
+  Polymer({
+    is: 'mjbe-teacher-pie',
+    properties: {
+      hoverselection: {
+        type: String
+      },
+      hovercolor: {
+        type: String
+      },
+      hoverbackground: {
+        type: String
+      },
+      userselection: {
+        notify: true
+      },
+      skills: {
+        computed: 'parseSkills(loadskills)',
+        observer: 'drawPie'
+      },
+      loadskills: {
+        notify: true
+      },
+      tree: {
+        computed: 'parseTree(loadtree)',
+        observer: 'drawPie'
+      },
+      loadtree: {
+        notify: true
+      },
+      active: {
+        notify: true
+      }
+    },
+    clickHandler: function(d) {
+      this.userselection = d.data._id;
+    },
+   
+    parseSkills: function(loadskills) {
+      try {
+        console.log('loadskills');
+        console.log(loadskills);
+        return JSON.parse(loadskills);
+      } catch (e) {}
+    },
+
+    parseTree: function(loadtree) {
+      try {       
+        console.log('in polymer');
+        console.log(loadtree);
+        return JSON.parse(loadtree);
+      } catch (e) {}
+    },
+
+    fadeDown: function(currentcolor) {
+      var rgb = currentcolor;
+      rgb = rgb.replace(/[^\d,]/g, '').split(',');
+      if(rgb.length < 3) {
+        rgb = [0,0,0];
+      }
+      var transformed = rgb.map(function(val){
+        val = val || 0;
+          if(~~val < 100) {
+            return ~~val + 100;
+          } else if (~~val + 40 < 255) {
+            return ~~val + 70;
+          } else {
+            return 255;
+          }
+      })
+      return 'rgb(' + transformed[0] + ','+ transformed[1] + ',' +transformed[2] + ')';
+    },
+
+    drawPie: function() {
+      console.log('got a response');
+      console.log(this.skills);
+      var data = this.skills;
+      var that = this;
+
+      var width = 400,
+        height = 400;
+      var outerRadius = height / 2 - 20,
+        innerRadius = outerRadius / 3,
+        cornerRadius = 10;
+      var pie = d3.layout.pie()
+        .padAngle(.02).value(function(d) {
+          return 1;
+        });
+      var arc = d3.svg.arc()
+        .padRadius(outerRadius)
+        .innerRadius(innerRadius);
+      var svg = d3.select(this.$.holder).append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+      svg.selectAll("path")
+        .data(pie(data))
+        .enter().append("path")
+        .each(function(d) {
+          d.outerRadius = outerRadius;
+        })
+        .attr("d", arc)
+        .style("fill", function() {
+          var color = '#' + Math.floor(Math.random() * 16777215).toString(16)
+          console.log(color);
+          return color;
+        })
+        .on("mouseover", arcTween(outerRadius + 20, 0))
+        .on("mouseout", arcTween(outerRadius, 150))
+        .on("click", this.clickHandler.bind(this));
+
+      function arcTween(outerRadius, delay) {
+        return function() {
+
+          that.hovercolor = d3.select(this)[0][0].style.fill; //get color of current selection
+          that.hoverbackground = that.fadeDown(that.hovercolor);
+          console.log(that.hovercolor);
+
+
+          d3.select(this).transition().delay(delay).attrTween("d", function(d) {
+            that.hoverselection = d.data.name;
+
+            var i = d3.interpolate(d.outerRadius, outerRadius);
+            return function(t) {
+              d.outerRadius = i(t);
+              return arc(d);
+            };
+          });
+        };
+      }
+    }
+  });
+  </script>
+</dom-module>
