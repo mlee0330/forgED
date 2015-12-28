@@ -20,10 +20,17 @@
       padding: 5px 20px;
     }
 
-    .container {
+    .containerborder {
       transition: background-color 1.5s ease;
-      max-width: 1000px;
-      min-height: 800px;
+      max-width: none;
+      min-height: 400px;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: #FFF;
+      max-width: none;
+      min-height: 400px;
     }
 
     .page-title {
@@ -33,11 +40,13 @@
     }
     </style>
     <h2 class="page-title" style$="background-color: [[hovercolor]]">Go to: [[hoverselection]]</h2>
-    <div class="container" style$="background-color: [[hoverbackground]]">
-    <div id="holder"></div>
-    <template is="dom-repeat" items="{{skills}}">
-      <li>{{item.name}}</li>
-    </template>
+    <div class="containerborder" style$="background-color: [[hoverbackground]]">
+      <div class="container">
+        <div id="holder"></div>
+        <template is="dom-repeat" items="{{skills}}">
+          <li>{{item.name}}</li>
+        </template>
+      </div>
     </div>
   </template>
   <script src="https://d3js.org/d3.v3.min.js"></script>
