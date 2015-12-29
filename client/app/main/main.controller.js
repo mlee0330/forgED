@@ -27,6 +27,11 @@
           this.treeData = tree;
         }.bind(this));
       }.bind(this))
+
+      Student.getSkills(function(skills) {
+        this.studentSkills = skills;
+        this.studentSkillsData = JSON.stringify(skills);
+      }.bind(this));
     }
 
     addThing() {

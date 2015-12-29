@@ -12,7 +12,7 @@
 
     #holder {
       width: 50%;
-      margin: 0 auto;
+      margin: auto;
       background-color: #939393;
     }
 
@@ -40,6 +40,7 @@
       transition: background-color 1.5s ease;
     }
     </style>
+    <p>{{loadstudentskills}}{{loadskills}}</p>
     <h2 class="page-title" style$="background-color: [[hovercolor]]">Go to: [[hoverselection]]</h2>
     <div class="containerborder" style$="background-color: [[hoverbackground]]">
       <div class="container">
@@ -72,14 +73,13 @@
         computed: 'parseSkills(loadskills)',
         observer: 'drawPie'
       },
+      studentskills: {
+        computed: 'parseStudentSkills(loadstudentskills)',
+      },
       loadskills: {
         notify: true
       },
-      tree: {
-        computed: 'parseTree(loadtree)',
-        observer: 'drawPie'
-      },
-      loadtree: {
+      loadstudentskills: {
         notify: true
       },
       active: {
@@ -92,9 +92,14 @@
    
     parseSkills: function(loadskills) {
       try {
-        console.log('loadskills');
-        console.log(loadskills);
         return JSON.parse(loadskills);
+      } catch (e) {}
+    },
+
+    parseStudentSkills: function(loadstudentskills) {
+      try {
+        console.log('loadstudentskills', loadstudentskills);
+        return JSON.parse(loadstudentskills);
       } catch (e) {}
     },
 
@@ -156,6 +161,7 @@
         })
         .attr("d", arc)
         .style("fill", function() {
+          console.log(d, 'this is the d');
           var color = '#' + Math.floor(Math.random() * 16777215).toString(16)
           return color;
         })

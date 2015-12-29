@@ -28,6 +28,7 @@ module.exports = function(config) {
       'client/bower_components/fabric.js/dist/fabric.min.js',
       'client/bower_components/promise-polyfill/Promise.js',
       'client/bower_components/web-animations-js/web-animations.min.js',
+      'client/bower_components/moment/moment.js',
       'client/bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'client/app/app.js',
