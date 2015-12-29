@@ -5,41 +5,33 @@
     :host {
       display: block;
     }
-
-    #holder {
-      width: 50%;
-    }
-
-    li {
-      width: 50%;
-      padding: 5px 20px;
-    }
-
-    .containerborder {
-      transition: background-color 1.5s ease;
-      max-width: none;
-      min-height: 400px;
-      padding: 20px;
-    }
-
-    .container {
-      background-color: #FFF;
-      max-width: none;
-      min-height: 400px;
-    }
-
-    .page-title {
-      margin: 0;
-      padding: 20px;
-      transition: background-color 1.5s ease;
+    
+    #chart-container{
+      position: absolute;
+      top: 80px;
+      margin: 20px;
     }
     </style>
 
 
-        <div id="holder"><h1>This is the teacher pie</h1></div>
-        <template is="dom-repeat" items="{{skills}}">
-          <li>{{item.name}}</li>
-        </template>
+        <div id="holder"><h1>Subjects</h1></div>
+
+        <figure id="chart-container"></figure>
+
+        <paper-dropdown-menu label="Classes">
+          <paper-menu class="dropdown-content">
+            <template is="dom-repeat" items="[[parsedSkills]]">
+            <paper-item>[[item.name]]</paper-item>
+            </template>
+          </paper-menu>
+        </paper-dropdown-menu>
+<!--         <google-chart
+          type='column'
+          options='{"title": "Class Progress"}'
+          cols='[{"label":"Subject", "type":"string"}, {"label":"Class completion", "type":"number"}]'
+          rows='[["Addition", 80],["Subtraction", 70],["Division", 90], ["Multiplication", 70]]'>
+        </google-chart> -->
+
 
   </template>
   <script src="https://d3js.org/d3.v3.min.js"></script>
@@ -60,16 +52,19 @@
       userselection: {
         notify: true
       },
-      skills: {
-        computed: 'parseSkills(loadskills)',
-        observer: 'drawPie'
+      parsedSkills: {
+        type: Array,
+        computed: 'parseSkills(skills)',
       },
-      loadskills: {
+      students: {
+        computed: 'parseStudents(loadstudents)',
+        // observer: 'drawPie'
+      },
+      loadstudents: {
         notify: true
       },
       tree: {
         computed: 'parseTree(loadtree)',
-        observer: 'drawPie'
       },
       loadtree: {
         notify: true
@@ -78,30 +73,44 @@
         notify: true
       }
     },
+    attached: function() {
+      console.log('inside attached')
+      var container = document.querySelector('figure#chart-container');
+      var attrs = {
+          'id': 'col-chart',
+          'type': 'column',
+          'options':'{"title": "Class Progress"}',
+          'cols':'[{"label":"Subject", "type":"string"}, {"label":"Class completion", "type":"number"}]',
+          'rows':'[["Addition", 80],["Subtraction", 70],["Division", 90], ["Multiplication", 70]]'
+        };
+      var chart = document.createElement('google-chart');
+      for (var key in attrs) {
+        chart.setAttribute(key, attrs[key]);
+      }
+      container.appendChild(chart);
+    },
+
     clickHandler: function(d) {
       this.userselection = d.data._id;
     },
-   
+
     parseStudents: function(loadstudents) {
       try {
-        console.log('loadskills');
-        console.log(loadskills);
-        return JSON.parse(loadskills);
+        console.log(loadstudents, 'this is loadstudents');
+        return JSON.parse(loadstudents);
       } catch (e) {}
     },
 
-    parseTree: function(loadtree) {
+    parseSkills: function(skills) {
       try {       
-        console.log('in polymer');
-        console.log(loadtree);
-        return JSON.parse(loadtree);
+        return JSON.parse(skills);
       } catch (e) {}
     },
 
     drawPie: function() {
       console.log('got a response');
-      console.log(this.skills);
-      var data = this.skills;
+      console.log(this.students);
+      var data = this.students;
       var that = this;
 
       var width = 400,

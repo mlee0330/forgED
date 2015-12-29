@@ -7,12 +7,13 @@
     <style>
     :host {
       display: block;
+      background-color: #939393;
     }
 
     #holder {
       width: 50%;
-      right: 0;
-      position: absolute;
+      margin: 0 auto;
+      background-color: #939393;
     }
 
     li {
@@ -27,11 +28,11 @@
       padding: 20px;
     }
 
-    .container {
-      background-color: #FFF;
+/*    .container {
+      background-color: #939393;
       max-width: none;
       min-height: 400px;
-    }
+    }*/
 
     .page-title {
       margin: 0;
@@ -43,9 +44,9 @@
     <div class="containerborder" style$="background-color: [[hoverbackground]]">
       <div class="container">
         <div id="holder"></div>
-        <template is="dom-repeat" items="{{skills}}">
+<!--         <template is="dom-repeat" items="{{skills}}">
           <li>{{item.name}}</li>
-        </template>
+        </template> -->
       </div>
     </div>
   </template>
@@ -156,7 +157,6 @@
         .attr("d", arc)
         .style("fill", function() {
           var color = '#' + Math.floor(Math.random() * 16777215).toString(16)
-          console.log(color);
           return color;
         })
         .on("mouseover", arcTween(outerRadius + 20, 0))
@@ -166,9 +166,9 @@
       function arcTween(outerRadius, delay) {
         return function() {
 
-          that.hovercolor = d3.select(this)[0][0].style.fill; //get color of current selection
-          that.hoverbackground = that.fadeDown(that.hovercolor);
-          console.log(that.hovercolor);
+          // that.hovercolor = d3.select(this)[0][0].style.fill; //get color of current selection
+          // that.hoverbackground = that.fadeDown(that.hovercolor);
+
 
 
           d3.select(this).transition().delay(delay).attrTween("d", function(d) {

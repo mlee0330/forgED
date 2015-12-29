@@ -45,6 +45,7 @@
     "moment": "~2.10.6",
     "google-chart": "GoogleWebComponents/google-chart#~1.0.4",
     "paper-date-picker": "polymer-paper-datepicker#~1.1.2"
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#~1.1.1",
   },
   "devDependencies": {
     "angular-mocks": "~1.4.0"

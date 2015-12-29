@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('hrr10MjbeApp')
-  .controller('DashboardCtrl', function($scope, $state, $rootScope, Teacher) {
+  .controller('DashboardCtrl', function($scope, $state, $rootScope, Teacher, Skills) {
     $scope.selectedClass = "";
 
     $scope.classname = "";
@@ -13,6 +13,11 @@ angular.module('hrr10MjbeApp')
     $scope.modSubmitCount = '0';
     var modSubmitCount = 0;
     var activeClass;
+
+    Skills.getSkills(function(skills) {
+      $scope.skills = skills;
+      $scope.skillsData = JSON.stringify(skills);
+    });
 
     //reloads stuff
     $scope.refresh = function() {
