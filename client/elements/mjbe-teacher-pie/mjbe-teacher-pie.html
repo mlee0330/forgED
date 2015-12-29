@@ -8,8 +8,6 @@
 
     #holder {
       width: 50%;
-      right: 0;
-      position: absolute;
     }
 
     li {
@@ -36,15 +34,13 @@
       transition: background-color 1.5s ease;
     }
     </style>
-    <h2 class="page-title" style$="background-color: [[hovercolor]]">Go to: [[hoverselection]]</h2>
-    <div class="containerborder" style$="background-color: [[hoverbackground]]">
-      <div class="container">
-        <div id="holder"></div>
+
+
+        <div id="holder"><h1>This is the teacher pie</h1></div>
         <template is="dom-repeat" items="{{skills}}">
           <li>{{item.name}}</li>
         </template>
-      </div>
-    </div>
+
   </template>
   <script src="https://d3js.org/d3.v3.min.js"></script>
   <script>
@@ -86,7 +82,7 @@
       this.userselection = d.data._id;
     },
    
-    parseSkills: function(loadskills) {
+    parseStudents: function(loadstudents) {
       try {
         console.log('loadskills');
         console.log(loadskills);
@@ -100,25 +96,6 @@
         console.log(loadtree);
         return JSON.parse(loadtree);
       } catch (e) {}
-    },
-
-    fadeDown: function(currentcolor) {
-      var rgb = currentcolor;
-      rgb = rgb.replace(/[^\d,]/g, '').split(',');
-      if(rgb.length < 3) {
-        rgb = [0,0,0];
-      }
-      var transformed = rgb.map(function(val){
-        val = val || 0;
-          if(~~val < 100) {
-            return ~~val + 100;
-          } else if (~~val + 40 < 255) {
-            return ~~val + 70;
-          } else {
-            return 255;
-          }
-      })
-      return 'rgb(' + transformed[0] + ','+ transformed[1] + ',' +transformed[2] + ')';
     },
 
     drawPie: function() {
