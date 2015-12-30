@@ -6,7 +6,7 @@
     margin: 20px;
    }
 
-   paper-button {
+   .clearwhiteboard {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -15,7 +15,7 @@
   </style>
   <template>
     <canvas id="canvas"></canvas>
-    <paper-button on-tap="clear">Clear Whiteboard<paper-icon-button mini icon="clear" on-tap="clear"></paper-icon-button></paper-button>
+    <paper-button class="clearwhiteboard" on-tap="clear">Clear Whiteboard<paper-icon-button mini icon="clear" on-tap="clear"></paper-icon-button></paper-button>
   </template>
   <script>
   (function() {
